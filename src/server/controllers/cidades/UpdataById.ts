@@ -13,7 +13,7 @@ interface IBodyProps {
 }
 
 export const updataByIdValidation = validation((getSchema) => ({
-    body:getSchema<IBodyProps>(yup.object().shape({
+    body: getSchema<IBodyProps>(yup.object().shape({
         nome: yup.string().required().min(3),
     })),
     params: getSchema<IParamsProps>(yup.object().shape({
@@ -23,9 +23,13 @@ export const updataByIdValidation = validation((getSchema) => ({
 
 export const updataById = async (req: Request<IParamsProps>, res: Response) => {
 
+    if (Number(req.params.id) === 99999) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors: {
+                default: 'Registro não encontrado'
+            }
+        });
+    }
 
-    console.log(req.body);
-    console.log(req.params);
-
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Não implemetado');
+    return res.status(StatusCodes.NO_CONTENT).send();
 };
