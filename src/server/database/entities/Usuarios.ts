@@ -20,10 +20,6 @@ export class Usuario {
     // eslint-disable-next-line indent
     email!: string;
 
-    @Column({ default: false })
-    // eslint-disable-next-line indent
-    bloqueado!: boolean;
-
     @Column({ type: 'text', nullable: false, unique: true })
     // eslint-disable-next-line indent
     login!: string;
@@ -35,9 +31,5 @@ export class Usuario {
     @CreateDateColumn({ nullable: false, type: 'date' })
     // eslint-disable-next-line indent
     data_criacao!: Date;
-
-    @Column({ nullable: true, type: 'date' })
-    // eslint-disable-next-line indent
-    ultimo_login!: Date;
 
 }

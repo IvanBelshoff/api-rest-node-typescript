@@ -3,14 +3,14 @@ import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 
 import { validation } from '../../shared/middleware';
+import { Cidade } from '../../database';
+import { CidadesProvider } from '../../database/providers/Cidades';
 
 interface IParamsProps {
     id?: number;
 }
 
-interface IBodyProps {
-    nome: string;
-}
+interface IBodyProps extends Omit<Cidade, 'id'>  {}
 
 export const updataByIdValidation = validation((getSchema) => ({
     body: getSchema<IBodyProps>(yup.object().shape({
@@ -21,12 +21,14 @@ export const updataByIdValidation = validation((getSchema) => ({
     }))
 }));
 
-export const updataById = async (req: Request<IParamsProps>, res: Response) => {
+export const updataById = async (req: Request<IParamsProps, {}, IBodyProps>, res: Response) => {
+ 
+    const result = await CidadesProvider.updataById(Number(req.params.id), req.body);
 
-    if (Number(req.params.id) === 99999) {
+    if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {
-                default: 'Registro não encontrado'
+                default: result.message
             }
         });
     }
