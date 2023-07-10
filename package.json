@@ -6,6 +6,7 @@
   "scripts": {
     "start": "ts-node-dev ./src/index.ts",
     "build": "tsc",
+    "seed": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js seed -d ./src/server/database/data-source.ts",
     "migration:generate": "typeorm-ts-node-commonjs -d ./src/server/database/data-source.ts migration:generate ./src/server/database/migrations/default",
     "migration:run": "typeorm-ts-node-commonjs -d ./src/server/database/data-source.ts migration:run",
     "test": "jest"
@@ -25,6 +26,7 @@
     "reflect-metadata": "^0.1.13",
     "ts-jest": "^29.1.1",
     "typeorm": "^0.3.17",
+    "typeorm-extension": "^2.8.1",
     "yup": "^1.2.0"
   },
   "devDependencies": {

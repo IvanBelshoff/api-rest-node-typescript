@@ -5,7 +5,7 @@ import { cidadeRepository } from '../../repositories';
 export const getAll = async (page: number, limit: number, filter: string, id = 0): Promise<Cidade[] | Error> => {
     try {
 
-        console.log(page + ' ' + limit + ' ' + filter + ' ' + id);
+
         const result = cidadeRepository.createQueryBuilder('cidade')
             .orderBy('cidade.id', 'ASC')
             .skip((page - 1) * limit)
