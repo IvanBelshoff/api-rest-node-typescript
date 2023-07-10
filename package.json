@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev ./src/index.ts",
+    "build": "tsc",
     "migration:generate": "typeorm-ts-node-commonjs -d ./src/server/database/data-source.ts migration:generate ./src/server/database/migrations/default",
     "migration:run": "typeorm-ts-node-commonjs -d ./src/server/database/data-source.ts migration:run",
     "test": "jest"

@@ -10,7 +10,7 @@ interface IParamsProps {
     id?: number;
 }
 
-interface IBodyProps extends Omit<Cidade, 'id'>  {}
+interface IBodyProps extends Omit<Cidade, 'id'> { }
 
 export const updataByIdValidation = validation((getSchema) => ({
     body: getSchema<IBodyProps>(yup.object().shape({
@@ -22,8 +22,16 @@ export const updataByIdValidation = validation((getSchema) => ({
 }));
 
 export const updataById = async (req: Request<IParamsProps, {}, IBodyProps>, res: Response) => {
- 
-    const result = await CidadesProvider.updataById(Number(req.params.id), req.body);
+
+    if (!req.params.id) {
+        return res.status(StatusCodes.BAD_REQUEST).json({
+            errors: {
+                default: 'O parâmetro "id" precisa ser informado'
+            }
+        });
+    }
+
+    const result = await CidadesProvider.updataById(req.params.id, req.body);
 
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
