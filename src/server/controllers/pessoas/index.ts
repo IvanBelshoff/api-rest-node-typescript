@@ -1,15 +1,13 @@
 import * as create from './Create';
 import * as getAll from './GetAll';
 import * as getById from './GetById';
-import * as UpdateById from './UpdateById';
+import * as updataById from './UpdataById';
 import * as deleteById from './DeleteById';
-import * as count from './Count';
 
-export const CidadesProvider = {
+export const PessoasController = {
     ...create,
-    ...deleteById,
-    ...getById,
-    ...UpdateById,
     ...getAll,
-    ...count,
+    ...getById,
+    ...updataById,
+    ...deleteById
 };

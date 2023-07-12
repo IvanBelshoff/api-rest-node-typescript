@@ -2,18 +2,12 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 
-import { validation } from '../../shared/middleware';
+import { validation } from '../../shared/middlewares';
 import { CidadesProvider } from '../../database/providers/Cidades';
-
-interface IQueryProps {
-    id?: number;
-    page?: number;
-    limit?: number;
-    filter?: string;
-}
+import { IQueryPropsGlobal } from '../../shared/interfaces';
 
 export const getAllValidation = validation((getSchema) => ({
-    query: getSchema<IQueryProps>(yup.object().shape({
+    query: getSchema<IQueryPropsGlobal>(yup.object().shape({
         page: yup.number().optional().moreThan(0),
         limit: yup.number().optional().moreThan(0),
         id: yup.number().integer().optional().default(0),
@@ -21,7 +15,7 @@ export const getAllValidation = validation((getSchema) => ({
     }))
 }));
 
-export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
+export const getAll = async (req: Request<{}, {}, {}, IQueryPropsGlobal>, res: Response) => {
 
     const result = await CidadesProvider.getAll(req.query.page || 1, req.query.limit || 7, req.query.filter || '', Number(req.query.id));
 

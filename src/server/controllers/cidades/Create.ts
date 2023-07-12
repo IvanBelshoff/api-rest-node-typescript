@@ -2,19 +2,17 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 
-import { validation } from '../../shared/middleware';
-import { Cidade } from '../../database';
+import { validation } from '../../shared/middlewares';
 import { CidadesProvider } from '../../database/providers/Cidades';
-
-interface IBodyProps extends Omit<Cidade, 'id'> { }
+import { IBodyPropsCidadeGlobal } from '../../shared/interfaces';
 
 export const createValidation = validation((getSchema) => ({
-    body: getSchema<IBodyProps>(yup.object().shape({
+    body: getSchema<IBodyPropsCidadeGlobal>(yup.object().shape({
         nome: yup.string().required().min(3).max(150)
     }))
 }));
 
-export const create = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
+export const create = async (req: Request<{}, {}, IBodyPropsCidadeGlobal>, res: Response) => {
 
     const result = await CidadesProvider.create(req.body);
 

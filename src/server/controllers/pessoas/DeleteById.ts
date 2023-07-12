@@ -2,28 +2,26 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 
+import { PessoasProvider } from './../../database/providers/Pessoas';
 import { validation } from '../../shared/middlewares';
-import { CidadesProvider } from '../../database/providers/Cidades';
 import { IParamsPropsGlobal } from '../../shared/interfaces';
 
-export const deleteByIdValidation = validation((getSchema) => ({
-    params: getSchema<IParamsPropsGlobal>(yup.object().shape({
+export const deleteByIdValidation = validation(get => ({
+    params: get<IParamsPropsGlobal>(yup.object().shape({
         id: yup.number().integer().required().moreThan(0),
-    }))
+    })),
 }));
 
 export const deleteById = async (req: Request<IParamsPropsGlobal>, res: Response) => {
-
     if (!req.params.id) {
         return res.status(StatusCodes.BAD_REQUEST).json({
             errors: {
-                default: 'O parâmetro "id" precisa ser informado'
+                default: 'O parâmetro "id" precisa ser informado.'
             }
         });
     }
 
-    const result = await CidadesProvider.deleteById(req.params.id);
-
+    const result = await PessoasProvider.deleteById(req.params.id);
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {

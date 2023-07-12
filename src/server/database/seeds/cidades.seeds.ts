@@ -7,6 +7,7 @@ export default class CitySeeder implements Seeder {
     public async run(
         _dataSource: DataSource,
         factoryManager: SeederFactoryManager
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ): Promise<any> {
         // ---------------------------------------------
         const userFactory = await factoryManager.get(Cidade);

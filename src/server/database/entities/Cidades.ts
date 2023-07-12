@@ -1,5 +1,6 @@
 
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Pessoa } from './Pessoas';
 
 @Entity('cidades')
 export class Cidade {
@@ -12,4 +13,12 @@ export class Cidade {
     // eslint-disable-next-line indent
     nome!: string;
 
+    @OneToMany(() => Pessoa, pessoa => pessoa.cidade, {
+        cascade: true,
+        onDelete: 'RESTRICT',
+        onUpdate: 'CASCADE'
+    })
+
+    // eslint-disable-next-line indent
+    pessoa!: Cidade[];
 }

@@ -1,12 +1,12 @@
 import { Cidade } from '../../entities';
 import { cidadeRepository } from '../../repositories';
 
-export const create = async (cidade: Omit<Cidade, 'id'>): Promise<number | Error> => {
+export const create = async (cidade: Omit<Cidade, 'id' | 'pessoa'>): Promise<number | Error> => {
 
     try {
-        const newcidade = cidadeRepository.create(cidade);
+        const newCidade = cidadeRepository.create(cidade);
 
-        const result = await cidadeRepository.save(newcidade);
+        const result = await cidadeRepository.save(newCidade);
 
         if( typeof result === 'object'){
             return result.id;

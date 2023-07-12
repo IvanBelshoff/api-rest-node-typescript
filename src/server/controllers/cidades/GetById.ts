@@ -2,20 +2,17 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 
-import { validation } from '../../shared/middleware';
+import { validation } from '../../shared/middlewares';
 import { CidadesProvider } from '../../database/providers/Cidades';
-
-interface IParamsProps {
-    id?: number;
-}
+import { IParamsPropsGlobal } from '../../shared/interfaces';
 
 export const getByIdValidation = validation((getSchema) => ({
-    params: getSchema<IParamsProps>(yup.object().shape({
+    params: getSchema<IParamsPropsGlobal>(yup.object().shape({
         id: yup.number().integer().required().moreThan(0),
     }))
 }));
 
-export const getById = async (req: Request<IParamsProps>, res: Response) => {
+export const getById = async (req: Request<IParamsPropsGlobal>, res: Response) => {
 
     if (!req.params.id) {
         return res.status(StatusCodes.BAD_REQUEST).json({

@@ -18,9 +18,9 @@ export const getAll = async (page: number, limit: number, filter: string, id = 0
             result.where('cidade.nome like :nome', { nome: `%${filter}%` });
         }
 
-        const kaizens = await result.getMany();
+        const cidades = await result.getMany();
 
-        if (id > 0 && kaizens.every(item => item.id !== id)) {
+        if (id > 0 && cidades.every(item => item.id !== id)) {
 
             const resultById = await cidadeRepository.findOne({
                 where:{
@@ -31,7 +31,7 @@ export const getAll = async (page: number, limit: number, filter: string, id = 0
             if (resultById) return [resultById];
         }
 
-        return kaizens;
+        return cidades;
 
     } catch (error) {
         console.log(error);

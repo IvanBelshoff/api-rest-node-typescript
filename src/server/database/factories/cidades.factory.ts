@@ -1,7 +1,7 @@
-import { setSeederFactory,  } from 'typeorm-extension';
+import { setSeederFactory as citySeederFactory  } from 'typeorm-extension';
 import { Cidade } from '../entities/Cidades';
 
-export default setSeederFactory(Cidade, (faker) => {
+export default citySeederFactory(Cidade, (faker) => {
     const city = new Cidade();
     city.nome = faker.location.city();
 

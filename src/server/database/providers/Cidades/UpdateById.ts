@@ -2,7 +2,7 @@ import { Cidade } from '../../entities';
 import { cidadeRepository } from '../../repositories';
 
 
-export const updataById = async (id: number, cidade: Omit<Cidade, 'id'>): Promise<void | Error> => {
+export const updateById = async (id: number, cidade: Omit<Cidade, 'id' |'pessoa'>): Promise<void | Error> => {
     try {
         const result = await cidadeRepository.findOne({
             where: {
