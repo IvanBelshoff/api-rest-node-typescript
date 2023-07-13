@@ -20,5 +20,5 @@ export class Cidade {
     })
 
     // eslint-disable-next-line indent
-    pessoa!: Cidade[];
+    pessoa?: Cidade[];
 }

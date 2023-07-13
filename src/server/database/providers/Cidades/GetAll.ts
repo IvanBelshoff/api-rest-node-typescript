@@ -7,7 +7,7 @@ export const getAll = async (page: number, limit: number, filter: string, id = 0
 
 
         const result = cidadeRepository.createQueryBuilder('cidade')
-            .orderBy('cidade.id', 'ASC')
+            .orderBy('cidade.id', 'DESC')
             .skip((page - 1) * limit)
             .take(limit);
 

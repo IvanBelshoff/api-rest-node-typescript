@@ -19,6 +19,7 @@ export const updateByIdValidation = validation(get => ({
 }));
 
 export const updateById = async (req: Request<IParamsPropsGlobal, {}, IBodyPropsPessoaGlobal>, res: Response) => {
+
     if (!req.params.id) {
         return res.status(StatusCodes.BAD_REQUEST).json({
             errors: {
@@ -28,6 +29,7 @@ export const updateById = async (req: Request<IParamsPropsGlobal, {}, IBodyProps
     }
 
     const result = await PessoasProvider.updateById(req.params.id, req.body);
+    
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {

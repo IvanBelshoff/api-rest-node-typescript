@@ -10,7 +10,14 @@ export const updateById = async (id: number, pessoa: IBodyPropsPessoaGlobal): Pr
         });
 
         if (result) {
-            await pessoaRepository.update({ id: id }, pessoa);
+            await pessoaRepository.update({ id: id }, {
+                nome: pessoa.nome,
+                email: pessoa.sobrenome,
+                sobrenome: pessoa.sobrenome,
+                cidade: {
+                    id: pessoa.cidade_id
+                }
+            });
             return;
         }
 

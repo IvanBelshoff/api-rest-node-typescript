@@ -18,7 +18,7 @@ describe('Pessoas - UpdateById', () => {
             .post('/pessoas')
             .send({
                 nome: 'Juca',
-                email: 'jucaupdateTeste@gmail.com',
+                email: 'jucaupdate@gmail.com',
                 sobrenome: 'Silva',
                 cidade_id
             });

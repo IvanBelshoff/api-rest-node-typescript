@@ -7,7 +7,7 @@ export const getAll = async (page: number, limit: number, filter: string): Promi
 
         const result = pessoaRepository.createQueryBuilder('pessoa')
             .leftJoinAndSelect('pessoa.cidade', 'cidade')
-            .orderBy('pessoa.id', 'ASC')
+            .orderBy('pessoa.id', 'DESC')
             .skip((page - 1) * limit)
             .take(limit)
             .where('pessoa.nome like :nome', { nome: `%${filter}%` })

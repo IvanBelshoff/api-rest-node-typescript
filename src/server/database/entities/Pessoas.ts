@@ -24,6 +24,6 @@ export class Pessoa {
     @ManyToOne(() => Cidade, cidade => cidade.pessoa)
     @JoinColumn({ name: 'cidade_id'  })
     // eslint-disable-next-line indent
-    cidade?: Cidade;
+    cidade!: Cidade;
 
 }
