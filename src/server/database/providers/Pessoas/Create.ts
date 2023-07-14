@@ -1,7 +1,6 @@
 import { IBodyPropsPessoaGlobal } from '../../../shared/interfaces';
 import { cidadeRepository, pessoaRepository } from '../../repositories';
 
-
 export const create = async (pessoa: IBodyPropsPessoaGlobal): Promise<number | Error> => {
 
     try {

@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { testServer } from '../jest.setup';
+import { deleteTestes } from '../../src/server/shared/middlewares';
 
 describe('Cidades - GetById', () => {
 
@@ -17,6 +18,8 @@ describe('Cidades - GetById', () => {
 
         expect(resBuscada.statusCode).toEqual(StatusCodes.OK);
         expect(resBuscada.body).toHaveProperty('nome');
+
+        await deleteTestes(Number(res1.body), 'cidade');
     });
     it('Tenta buscar registro que não existe', async () => {
 

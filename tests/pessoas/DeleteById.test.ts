@@ -1,6 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { testServer } from '../jest.setup';
+import { deleteTestes } from '../../src/server/shared/middlewares';
 
 
 describe('Pessoas - DeleteById', () => {
@@ -8,7 +9,7 @@ describe('Pessoas - DeleteById', () => {
     beforeAll(async () => {
         const resCidade = await testServer
             .post('/cidades')
-            .send({ nome: 'Teste' });
+            .send({ nome: 'Teste2' });
 
         cidade_id = resCidade.body;
     });
@@ -37,5 +38,9 @@ describe('Pessoas - DeleteById', () => {
 
         expect(res1.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
         expect(res1.body).toHaveProperty('errors.default');
+    });
+
+    afterAll(async () => {
+        deleteTestes(Number(cidade_id), 'cidade');
     });
 });

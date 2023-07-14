@@ -1,13 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { testServer } from '../jest.setup';
+import { deleteTestes } from '../../src/server/shared/middlewares';
 
 describe('Pessoas - UpdateById', () => {
     let cidade_id: number | undefined = undefined;
     beforeAll(async () => {
         const resCidade = await testServer
             .post('/cidades')
-            .send({ nome: 'Teste' });
+            .send({ nome: 'Teste5' });
 
         cidade_id = resCidade.body;
     });
@@ -22,6 +23,7 @@ describe('Pessoas - UpdateById', () => {
                 sobrenome: 'Silva',
                 cidade_id
             });
+
         expect(res1.statusCode).toEqual(StatusCodes.CREATED);
 
         const resAtualizada = await testServer
@@ -33,6 +35,8 @@ describe('Pessoas - UpdateById', () => {
                 cidade_id
             });
         expect(resAtualizada.statusCode).toEqual(StatusCodes.NO_CONTENT);
+
+        await deleteTestes(Number(res1.body), 'pessoa');
     });
 
     it('Tenta atualizar registro que não existe', async () => {
@@ -47,5 +51,9 @@ describe('Pessoas - UpdateById', () => {
 
         expect(res1.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
         expect(res1.body).toHaveProperty('errors.default');
+    });
+
+    afterAll(async () => {
+        await deleteTestes(Number(cidade_id), 'cidade');
     });
 });

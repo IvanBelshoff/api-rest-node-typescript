@@ -3,8 +3,8 @@ import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 
 import { validation } from '../../shared/middlewares';
-import { CidadesProvider } from '../../database/providers/cidades';
 import { IQueryPropsGlobal } from '../../shared/interfaces';
+import { UsuariosProvider } from '../../database/providers/usuarios';
 
 export const getAllValidation = validation((getSchema) => ({
     query: getSchema<IQueryPropsGlobal>(yup.object().shape({
@@ -17,9 +17,9 @@ export const getAllValidation = validation((getSchema) => ({
 
 export const getAll = async (req: Request<{}, {}, {}, IQueryPropsGlobal>, res: Response) => {
 
-    const result = await CidadesProvider.getAll(req.query.page || 1, req.query.limit || 7, req.query.filter || '', Number(req.query.id));
+    const result = await UsuariosProvider.getAll(req.query.page || 1, req.query.limit || 7, req.query.filter || '', Number(req.query.id));
 
-    const count = await CidadesProvider.count(req.query.filter);
+    const count = await UsuariosProvider.count(req.query.filter);
 
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

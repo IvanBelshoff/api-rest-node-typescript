@@ -1,6 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { testServer } from '../jest.setup';
+import { deleteTestes } from '../../src/server/shared/middlewares';
 
 
 describe('Pessoas - GetAll', () => {
@@ -8,7 +9,7 @@ describe('Pessoas - GetAll', () => {
     beforeAll(async () => {
         const resCidade = await testServer
             .post('/cidades')
-            .send({ nome: 'Teste' });
+            .send({ nome: 'Teste3' });
 
         cidade_id = resCidade.body;
     });
@@ -31,5 +32,12 @@ describe('Pessoas - GetAll', () => {
         expect(Number(resBuscada.header['x-total-count'])).toBeGreaterThan(0);
         expect(resBuscada.statusCode).toEqual(StatusCodes.OK);
         expect(resBuscada.body.length).toBeGreaterThan(0);
+
+        await deleteTestes(Number(res1.body), 'pessoa');
     });
+
+    afterAll(async () => {
+        await deleteTestes(Number(cidade_id), 'cidade');
+    });
+
 });

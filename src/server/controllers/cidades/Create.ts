@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 
 import { validation } from '../../shared/middlewares';
-import { CidadesProvider } from '../../database/providers/Cidades';
+import { CidadesProvider } from '../../database/providers/cidades';
 import { IBodyPropsCidadeGlobal } from '../../shared/interfaces';
 
 export const createValidation = validation((getSchema) => ({

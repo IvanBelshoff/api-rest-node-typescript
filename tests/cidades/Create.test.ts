@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { testServer } from '../jest.setup';
+import { deleteTestes } from '../../src/server/shared/middlewares';
 
 describe('Cidades - Create', () => {
 
@@ -12,6 +13,7 @@ describe('Cidades - Create', () => {
         expect(res1.statusCode).toEqual(StatusCodes.CREATED);
         expect(typeof res1.body).toEqual('string');
 
+        await deleteTestes(Number(res1.body), 'cidade');
     });
 
     it('Tenta criar registro com nome muito curto', async () => {
@@ -26,3 +28,4 @@ describe('Cidades - Create', () => {
     });
 
 });
+

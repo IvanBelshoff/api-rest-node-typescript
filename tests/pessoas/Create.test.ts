@@ -1,6 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { testServer } from '../jest.setup';
+import { deleteTestes } from '../../src/server/shared/middlewares';
 
 
 describe('Pessoas - Create', () => {
@@ -8,7 +9,7 @@ describe('Pessoas - Create', () => {
     beforeAll(async () => {
         const resCidade = await testServer
             .post('/cidades')
-            .send({ nome: 'Teste' });
+            .send({ nome: 'Teste1' });
 
         cidade_id = resCidade.body;
     });
@@ -26,7 +27,10 @@ describe('Pessoas - Create', () => {
 
         expect(res1.statusCode).toEqual(StatusCodes.CREATED);
         expect(typeof res1.body).toEqual('number');
+
+        deleteTestes(Number(res1.body),'pessoa');
     });
+
     it('Cadastra registro 2', async () => {
         const res1 = await testServer
             .post('/pessoas')
@@ -39,6 +43,8 @@ describe('Pessoas - Create', () => {
 
         expect(res1.statusCode).toEqual(StatusCodes.CREATED);
         expect(typeof res1.body).toEqual('number');
+
+        deleteTestes(Number(res1.body),'pessoa');
     });
     it('Tenta criar registro com email duplicado', async () => {
         const res1 = await testServer
@@ -62,6 +68,8 @@ describe('Pessoas - Create', () => {
             });
         expect(res2.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
         expect(res2.body).toHaveProperty('errors.default');
+
+        deleteTestes(Number(res1.body),'pessoa');
     });
     it('Tenta criar registro com nome muito curto', async () => {
         const res1 = await testServer
@@ -92,7 +100,7 @@ describe('Pessoas - Create', () => {
             .post('/pessoas')
             .send({
                 cidade_id,
-                nome: 'Juca da Silva',
+                nome: 'Juca',
                 sobrenome: 'Silva'
             });
 
@@ -105,7 +113,7 @@ describe('Pessoas - Create', () => {
             .send({
                 cidade_id,
                 email: 'juca gmail.com',
-                nome: 'Juca da Silva',
+                nome: 'Juca',
                 sobrenome: 'Silva'
             });
 
@@ -130,7 +138,7 @@ describe('Pessoas - Create', () => {
             .send({
                 cidade_id: 'teste',
                 email: 'juca@gmail.com',
-                nome: 'Juca da Silva',
+                nome: 'Juca',
                 sobrenome: 'Silva'
             });
 
@@ -149,4 +157,9 @@ describe('Pessoas - Create', () => {
         expect(res1.body).toHaveProperty('errors.body.nome');
         expect(res1.body).toHaveProperty('errors.body.sobrenome');
     });
+
+    afterAll(async () => {
+        deleteTestes(Number(cidade_id),'cidade');
+    });
+  
 });

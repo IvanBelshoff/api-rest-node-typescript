@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { testServer } from '../jest.setup';
+import { deleteTestes } from '../../src/server/shared/middlewares';
 
 describe('Cidades - GetAll', () => {
 
@@ -18,5 +19,7 @@ describe('Cidades - GetAll', () => {
         expect(Number(resBuscada.header['x-total-count'])).toBeGreaterThan(0);
         expect(resBuscada.statusCode).toEqual(StatusCodes.OK);
         expect(resBuscada.body.length).toBeGreaterThan(0);
+
+        await deleteTestes(Number(res1.body), 'cidade');
     });
 });

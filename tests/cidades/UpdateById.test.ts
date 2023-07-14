@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { testServer } from '../jest.setup';
+import { deleteTestes } from '../../src/server/shared/middlewares';
 
 describe('Cidades - UpdateById', () => {
 
@@ -16,6 +17,8 @@ describe('Cidades - UpdateById', () => {
             .send({ nome: 'Viana' });
 
         expect(resAtualizada.statusCode).toEqual(StatusCodes.NO_CONTENT);
+
+        await deleteTestes(Number(res1.body), 'cidade');
     });
     it('Tenta atualizar registro que não existe', async () => {
 

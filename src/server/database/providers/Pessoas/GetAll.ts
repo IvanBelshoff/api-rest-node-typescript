@@ -1,7 +1,6 @@
 import { Pessoa } from '../../entities';
 import { pessoaRepository } from '../../repositories';
 
-
 export const getAll = async (page: number, limit: number, filter: string): Promise<Pessoa[] | Error> => {
     try {
 

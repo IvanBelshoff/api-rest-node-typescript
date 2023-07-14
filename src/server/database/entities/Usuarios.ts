@@ -20,10 +20,6 @@ export class Usuario {
     // eslint-disable-next-line indent
     email!: string;
 
-    @Column({ type: 'text', nullable: false, unique: true })
-    // eslint-disable-next-line indent
-    login!: string;
-
     @Column({ type: 'text', nullable: false })
     // eslint-disable-next-line indent 
     senha!: string;

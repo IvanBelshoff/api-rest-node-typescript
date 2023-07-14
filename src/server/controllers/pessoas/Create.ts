@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import { Request, Response } from 'express';
 import * as yup from 'yup';
 
-import { PessoasProvider } from './../../database/providers/Pessoas';
+import { PessoasProvider } from '../../database/providers/pessoas';
 import { validation } from '../../shared/middlewares';
 import { IBodyPropsPessoaGlobal } from '../../shared/interfaces';
 

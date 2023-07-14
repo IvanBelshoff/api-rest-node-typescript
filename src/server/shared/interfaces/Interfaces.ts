@@ -1,4 +1,4 @@
-import { Cidade, Pessoa } from '../../database/entities';
+import { Cidade, Pessoa, Usuario } from '../../database/entities';
 
 export interface IBodyPropsPessoaGlobal extends Omit<Pessoa, 'id' | 'cidade'> { cidade_id: number }
 
@@ -17,4 +17,12 @@ export interface IQueryPropsGlobal {
     page?: number;
     limit?: number;
     filter?: string;
+}
+
+export interface IBodyPropsUsuarioSignIn extends Omit<Usuario, 'id' | 'nome' |'data_criacao' | 'sobrenome'> { }
+
+export interface IBodyPropsUsuarios extends Omit<Usuario, 'id' | 'data_criacao'> { }
+
+export interface IJwtData {
+    uid: number;
 }
