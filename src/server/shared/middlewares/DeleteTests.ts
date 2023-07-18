@@ -1,6 +1,5 @@
 import { cidadeRepository, pessoaRepository, usuarioRepository } from '../../database/repositories';
-
-type TType = 'usuario' | 'cidade' | 'pessoa';
+import { TType } from '../interfaces';
 
 export async function deleteTestes(id: number, tipo: TType): Promise<number> {
 

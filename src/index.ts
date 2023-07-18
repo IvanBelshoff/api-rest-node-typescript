@@ -10,6 +10,7 @@ AppDataSource.initialize().then(async () => {
     server.listen(process.env.PORT, async () => {
         console.log(`\nServidor rodando no endereço: http://${process.env.HOST}:${process.env.PORT}\n`);
     });
+    
 }).catch((error) => {
 
     if (error.code == String("3D000")) {

@@ -24,7 +24,7 @@ router.put('/pessoas/:id', ensureAuthenticated, PessoasController.updateByIdVali
 router.delete('/pessoas/:id', ensureAuthenticated, PessoasController.deleteByIdValidation, PessoasController.deleteById);
 
 router.post('/entrar', UsuariosController.signInValidation, UsuariosController.signIn);
-router.post('/cadastrar', ensureAuthenticated, UsuariosController.signUpValidation, UsuariosController.signUp);
+router.post('/cadastrar', UsuariosController.signUpValidation, UsuariosController.signUp);
 router.get('/usuarios', ensureAuthenticated, UsuariosController.getAllValidation, UsuariosController.getAll);
 
 export { router };

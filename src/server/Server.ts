@@ -20,6 +20,12 @@ server.use(bodyParser.json());
 server.use((req, res, next) => {
 
     server.use(cors());
+
+    /*
+    server.use(cors({
+        origin:'https://.google.com'
+    }));*/
+
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 

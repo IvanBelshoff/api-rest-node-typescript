@@ -2,7 +2,7 @@ import { Usuario } from '../../entities';
 import { usuarioRepository } from '../../repositories';
 
 
-export const getAll = async (page: number, limit: number, filter: string, id = 0): Promise<Usuario[] | Error> => {
+export const getAll = async (page: number, limit: number, filter: string, id = 0): Promise<Omit<Usuario ,'senha'>[] | Error> => {
     try {
 
         const result = usuarioRepository.createQueryBuilder('usuario')
@@ -13,7 +13,7 @@ export const getAll = async (page: number, limit: number, filter: string, id = 0
         if (id > 0) {
             result.where('usuario.id = :id', { id: id });
             result.andWhere('usuario.nome like :nome', { nome: `%${filter}%` });
-        }else{
+        } else {
             result.where('usuario.nome like :nome', { nome: `%${filter}%` });
         }
 
@@ -22,7 +22,7 @@ export const getAll = async (page: number, limit: number, filter: string, id = 0
         if (id > 0 && usuarios.every(item => item.id !== id)) {
 
             const resultById = await usuarioRepository.findOne({
-                where:{
+                where: {
                     id: id
                 }
             });
@@ -30,7 +30,15 @@ export const getAll = async (page: number, limit: number, filter: string, id = 0
             if (resultById) return [resultById];
         }
 
-        return usuarios;
+        const newUsers:Omit<Usuario, 'senha'>[]  = usuarios.map(user => ({
+            id: user.id,
+            nome: user.nome,
+            sobrenome: user.sobrenome,
+            email: user.email,
+            data_criacao: user.data_criacao
+        }));
+
+        return newUsers;
 
     } catch (error) {
         console.log(error);

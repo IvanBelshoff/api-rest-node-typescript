@@ -26,3 +26,5 @@ export interface IBodyPropsUsuarios extends Omit<Usuario, 'id' | 'data_criacao'>
 export interface IJwtData {
     uid: number;
 }
+
+export type TType = 'usuario' | 'cidade' | 'pessoa';
