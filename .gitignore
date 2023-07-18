@@ -2,6 +2,6 @@
 
 /build
 /coverage
-migrations
+/src/server/database/migrations
 
 .env
