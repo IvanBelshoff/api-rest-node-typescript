@@ -15,6 +15,6 @@ export default class CitySeeder implements Seeder {
         await userFactory.save();
 
         // save 5 factory generated entities, to the database
-        await userFactory.saveMany(0);
+        await userFactory.saveMany(7);
     }
 }

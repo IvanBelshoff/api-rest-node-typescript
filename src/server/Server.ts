@@ -11,7 +11,6 @@ import { router } from './routes';
 const server = express();
 
 server.use(express.json());
-server.use(express.json());
 
 server.disable('etag');
 server.use(morgan('dev'));
